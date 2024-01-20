@@ -25,5 +25,8 @@ jobs:
       - name: Install package
         run: pip install .
 
+      - name: Install package
+        run: pip install -r requirements_dev.txt
+
       - name: Runing pytest
         run: pytest tests/
