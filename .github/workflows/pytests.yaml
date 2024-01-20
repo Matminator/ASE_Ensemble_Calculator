@@ -19,10 +19,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: upgrade pipwheel
+      - name: Upgrade pipwheel
         run: pip install --upgrade pip
 
-      - name: install wheel
+      - name: Install wheel
         run: pip install wheel
 
       - name: Install package
