@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install requirements_dev
-        run: pip install .
+        run: pip install ASE_Ensemble_Calculator/
 
       - name: Runing pytest
         run: pytest tests/
