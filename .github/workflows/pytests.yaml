@@ -19,13 +19,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: upgrade pipwheel
+        pip install --upgrade pip
+
       - name: install wheel
         run: pip install wheel
 
       - name: Install package
         run: pip install .
 
-      - name: Install package
+      - name: Install requirements_dev
         run: pip install -r requirements_dev.txt
 
       - name: Runing pytest
