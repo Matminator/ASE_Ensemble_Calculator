@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: upgrade pipwheel
-        pip install --upgrade pip
+        run: pip install --upgrade pip
 
       - name: install wheel
         run: pip install wheel
