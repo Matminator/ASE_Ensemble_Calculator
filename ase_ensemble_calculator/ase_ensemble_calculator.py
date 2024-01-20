@@ -2,10 +2,11 @@ import numpy as np
 from ase.calculators.calculator import Calculator
 import warnings
 
-class  Ensemble_Calculator(Calculator):
+class Ensemble_Calculator(Calculator):
     implemented_properties = ['energy', 'forces']
 
-    def __init__(self, calculators: list):
+    def __init__(self, calculators: list, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         num_models = len(calculators)
 
@@ -31,17 +32,19 @@ class  Ensemble_Calculator(Calculator):
         self.num_models = num_models
 
     def calculate(self, atoms, properties, system_changes):
+        super().calculate(atoms, properties, system_changes)
+
         # Check which properties need to be calculated
         energy = 0.0
         forces = None
 
         if 'energy' in properties:
             # Perform energy calculation here (replace this with your actual calculation)
-            energy = self.__calculate_potential_energy(atoms)
+            energy = self.__calculate_potential_energy(self.atoms)
 
         if 'forces' in properties:
             # Perform forces calculation here (replace this with your actual calculation)
-            forces = self.__calculate_forces(atoms)
+            forces = self.__calculate_forces(self.atoms)
 
         # Store the calculated values
         self.results = {'energy': energy, 'forces': forces}
@@ -81,4 +84,3 @@ class  Ensemble_Calculator(Calculator):
         
 
         return 0
-
