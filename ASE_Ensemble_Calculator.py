@@ -82,13 +82,3 @@ class  ASE_Ensemble_Calculator(Calculator):
 
         return 0
 
-
-from ase import Atoms
-# from yourmodule import SimpleCalculator  # Make sure to replace 'yourmodule' with the actual module name
-
-atoms = Atoms('H2', positions=[(0, 0, 0), (0, 0, 1)])
-atoms.set_calculator(SimpleCalculator([1,2]))
-
-# Now you can access the energy and forces
-
-atoms.get_stress()
