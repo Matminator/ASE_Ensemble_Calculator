@@ -1,15 +1,18 @@
 
-from ase.calculators.emt import EMT
+import sys
+sys.path.append('..')
+sys.path.append('/home/matnis/ASE_Ensemble_Calculator/')
 
+from ASE_Ensemble_Calculator.ase_ensemble_calculator.ase_ensemble_calculator import Ensemble_Calculator as ES
+from ase.calculators.emt import EMT
 
 
 def test_three_calculatrs_setup():
 
     calcs = [EMT(), EMT(), EMT()]
 
-    from ASE_Ensemble_Calculator import ASE_Ensemble_Calculator as EC
+    ensamble = ES(calcs)
 
-    ensamble = EC(calcs)
 
 
     

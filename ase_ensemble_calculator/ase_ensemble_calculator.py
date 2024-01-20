@@ -2,7 +2,7 @@ import numpy as np
 from ase.calculators.calculator import Calculator
 import warnings
 
-class  ASE_Ensemble_Calculator(Calculator):
+class  Ensemble_Calculator(Calculator):
     implemented_properties = ['energy', 'forces']
 
     def __init__(self, calculators: list):
@@ -16,7 +16,7 @@ class  ASE_Ensemble_Calculator(Calculator):
         # Testing type of list
         nun_ASE_calcs = 0
         for calc in calculators:
-            if type(calc) != Calculator:
+            if not isinstance(calc, Calculator):
                 nun_ASE_calcs += 1
         if nun_ASE_calcs > 0:
             warnings.warn(
