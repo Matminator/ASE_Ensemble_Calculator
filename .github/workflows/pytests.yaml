@@ -19,11 +19,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: ls
-        run: ls
+      - name: install wheel
+        run: pip install wheel
 
-      - name: Install requirements_dev
-        run: pip install ASE_Ensemble_Calculator/
+      - name: Install package
+        run: pip install .
 
       - name: Runing pytest
         run: pytest tests/
