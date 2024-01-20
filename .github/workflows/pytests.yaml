@@ -1,0 +1,26 @@
+name: pytests
+
+on:
+  push:
+
+jobs:
+  run-tests:
+    strategy:
+      fail-fast: false
+
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.8", "3.9", "3.10", ""3.11"]
+
+    name: Test
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install requirements_dev
+        run: pip install -r requirements_dev.txt
+
+      - name: Runing pytest
+        run: pytest tests/

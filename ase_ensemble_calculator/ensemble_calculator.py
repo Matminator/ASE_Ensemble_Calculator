@@ -8,10 +8,10 @@ class Ensemble_Calculator(Calculator):
     def __init__(self, calculators: list, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        num_models = len(calculators)
+        num_calculators = len(calculators)
 
         # Testing input:
-        if num_models == 0:
+        if num_calculators == 0:
             raise ValueError('Provided list of calculators is empty (length is 0)')
         
         # Testing type of list
@@ -29,7 +29,7 @@ class Ensemble_Calculator(Calculator):
         self.calculators = calculators
         self.potential_energy_variance = None
         self.forces_variances = None
-        self.num_models = num_models
+        self.num_calculators = num_calculators
 
     def calculate(self, atoms, properties, system_changes):
         super().calculate(atoms, properties, system_changes)
