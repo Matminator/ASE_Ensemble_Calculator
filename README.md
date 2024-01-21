@@ -4,17 +4,17 @@ Simple and streamlined ASE calculator for machine learning ensemble and active l
 
 Basic usage:
 ```
-    from ase_ensemble_calculator.ensemble_calculator import Ensemble_Calculator as ES
+from ase_ensemble_calculator.ensemble_calculator import Ensemble_Calculator as ES
 
-    calc1 = calculator1() # A ASE calculator
-    calc2 = calculator2() # A diffrent ASE calculator
+calc1 = calculator1() # A ASE calculator
+calc2 = calculator2() # A diffrent ASE calculator
 
-    ensamble = ES([calc1, calc2])
-    atoms.calc = ensamble
+ensamble = ES([calc1, calc2])
+atoms.calc = ensamble
 
-    energy = atoms.get_potential_energy()
-    forces = atoms.get_forces()
+energy = atoms.get_potential_energy()
+forces = atoms.get_forces()
 
-    energy_variance = ensamble.get_potential_energy_variance()
-    forces_variances = ensamble.get_forces_variances()
+energy_variance = ensamble.get_potential_energy_variance()
+forces_variances = ensamble.get_forces_variances()
 ```
