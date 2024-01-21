@@ -13,6 +13,9 @@ class Ensemble_Calculator(Calculator):
         # Testing input:
         if num_calculators == 0:
             raise ValueError('Provided list of calculators is empty (length is 0)')
+        elif num_calculators == 1:
+            raise ValueError('Provided list of calculators contains only one element.',
+                             'Hence, this calculator is not needed')
         
         # Testing type of list
         nun_ASE_calcs = 0
@@ -83,9 +86,7 @@ class Ensemble_Calculator(Calculator):
         if  self.compute_variances:
             # Computing the variance of all forces:
             x = (all_forces - mean_forces)**2
-
             x = np.sum(x, axis = 0)
-            x = np.sum(x, axis = 1) / (3 * self.num_calculators)
-            self.forces_variances = np.sqrt(x) 
+            self.forces_variances  = np.sum(x, axis = 1) / (3 * self.num_calculators)
 
         return mean_forces
