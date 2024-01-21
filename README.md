@@ -4,6 +4,8 @@ Simple and streamlined ASE calculator for machine learning ensemble and active l
 
 Basic usage:
 ```
+    from ase_ensemble_calculator.ensemble_calculator import Ensemble_Calculator as ES
+
     calc1 = calculator1() # A ASE calculator
     calc2 = calculator2() # A diffrent ASE calculator
 
