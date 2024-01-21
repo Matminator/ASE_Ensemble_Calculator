@@ -14,5 +14,5 @@ Basic usage:
     forces = atoms.get_forces()
 
     energy_variance = ensamble.get_potential_energy_variance()
-    forces_variance = ensamble.get_forces_variances()
+    forces_variances = ensamble.get_forces_variances()
 ```
