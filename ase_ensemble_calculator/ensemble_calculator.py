@@ -30,23 +30,13 @@ class Ensemble_Calculator(Calculator):
         self.potential_energy_variance = None
         self.forces_variances = None
         self.num_calculators = num_calculators
+        self.compute_variances = compute_variances
 
     def calculate(self, atoms, properties, system_changes):
         super().calculate(atoms, properties, system_changes)
 
-        # Check which properties need to be calculated
-        energy = 0.0
-        forces = None
-
-        if 'energy' in properties:
-            # Perform energy calculation here (replace this with your actual calculation)
-            energy = self.__calculate_potential_energy(self.atoms)
-
-        if 'forces' in properties:
-            # Perform forces calculation here (replace this with your actual calculation)
-            forces = self.__calculate_forces(self.atoms)
-
-        # Store the calculated values
+        energy = self.__calculate_potential_energy(self.atoms)
+        forces = self.__calculate_forces(self.atoms)
         self.results = {'energy': energy, 'forces': forces}
 
     def get_potential_energy_variance(self):
@@ -71,9 +61,14 @@ class Ensemble_Calculator(Calculator):
             atoms_copy = atoms.copy()
             atoms_copy.calc = calc
             calc_energies.append(atoms_copy.get_potential_energy())
+        
+        mean_energy = np.mean(calc_energies)
     
-        self.potential_energy_variance = np.var(calc_energies)
-        return np.mean(calc_energies)
+        if  self.compute_variances:    
+            # Computing the variance of the energies:
+            self.potential_energy_variance = np.var(calc_energies)
+
+        return mean_energy
     
     def __calculate_forces(self, atoms):
 
@@ -85,11 +80,12 @@ class Ensemble_Calculator(Calculator):
         
         mean_forces = np.mean(all_forces, axis = 0)
         
-        # Computing the variance of all forces:
-        x = (all_forces - mean_forces)**2
+        if  self.compute_variances:
+            # Computing the variance of all forces:
+            x = (all_forces - mean_forces)**2
 
-        x = np.sum(x, axis = 0)
-        x = np.sum(x, axis = 1) / (3 * self.num_calculators)
-        self.forces_variances = np.sqrt(x) 
+            x = np.sum(x, axis = 0)
+            x = np.sum(x, axis = 1) / (3 * self.num_calculators)
+            self.forces_variances = np.sqrt(x) 
 
         return mean_forces
