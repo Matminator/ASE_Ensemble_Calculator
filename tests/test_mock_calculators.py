@@ -30,6 +30,8 @@ class mock_calculator(Calculator):
         forces = np.ones((len(atoms), 3)) * self.force
         return forces
 
+
+
 def test_simple_calculators_output_shapes():
 
     calc1 = mock_calculator()
@@ -46,6 +48,44 @@ def test_simple_calculators_output_shapes():
     assert energy.shape == ()
     assert forces.shape == (2, 3)
 
+def test_compute_variances_option():
+
+    calc1 = mock_calculator()
+    calc2 = mock_calculator()
+
+    ensamble = ES([calc1, calc2], compute_variances = False)
+
+    atoms = Atoms(["H", "H"], positions= ([0, 0, 0], [0.5, 0.5, 0.5]))
+    atoms.calc = ensamble
+
+    energy1 = atoms.get_potential_energy()
+    forces1 = atoms.get_forces()
+
+    # Testing what energy and forces have been computed:
+    assert energy1.shape == ()
+    assert forces1.shape == (2, 3)
+
+    # Testing that variances have not been computed:
+    assert ensamble.get_potential_energy_variance() == None
+    assert ensamble.get_forces_variances() == None
+
+    # Ensable with variance computation:
+    ensamble = ES([calc1, calc2])
+    atoms.calc = ensamble
+
+    energy2 = atoms.get_potential_energy()
+    forces2 = atoms.get_forces()
+
+    # Testing that the variance computations does not effect the energy and forces:
+    assert np.allclose(energy1, energy2)
+    assert np.allclose(forces1, forces2)
+
+    # Testing that variances have been computed:
+    assert not ensamble.get_potential_energy_variance() == None
+    assert not ensamble.get_forces_variances().any(None)
+    # Testing that standard divations may be computed:
+    assert not ensamble.get_potential_energy_standard_deviation() == None
+    assert not ensamble.get_forces_standard_deviations().any(None)
 
 def test_simple_calculators_1():
 
