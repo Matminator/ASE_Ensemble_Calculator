@@ -5,7 +5,7 @@ import warnings
 class Ensemble_Calculator(Calculator):
     implemented_properties = ['energy', 'forces']
 
-    def __init__(self, calculators: list, *args, **kwargs):
+    def __init__(self, calculators: list, compute_variances = True, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
         num_calculators = len(calculators)
@@ -56,31 +56,40 @@ class Ensemble_Calculator(Calculator):
         return np.sqrt(self.potential_energy_variance)
     
     def get_forces_variances(self):
-        pass
+        return self.forces_variances
 
     def get_forces_standard_deviations(self):
-        pass
+        return np.sqrt(self.forces_variances)
+
+
+    # Private methods for computation of energy and forces:
 
     def __calculate_potential_energy(self, atoms):
 
         calc_energies = []
         for calc in self.calculators:
             atoms_copy = atoms.copy()
-            atoms.calc = calc
-            calc_energies.append(atoms.get_potential_energy())
-        
-
-        
-        return 0
+            atoms_copy.calc = calc
+            calc_energies.append(atoms_copy.get_potential_energy())
+    
+        self.potential_energy_variance = np.var(calc_energies)
+        return np.mean(calc_energies)
     
     def __calculate_forces(self, atoms):
 
-        calc_forces = []
+        all_forces = []
         for calc in self.calculators:
             atoms_copy = atoms.copy()
-            atoms.calc = calc
-            calc_forces.append(atoms.get_forces())
+            atoms_copy.calc = calc
+            all_forces.append(atoms_copy.get_forces())
         
+        mean_forces = np.mean(all_forces, axis = 0)
         
+        # Computing the variance of all forces:
+        x = (all_forces - mean_forces)**2
 
-        return 0
+        x = np.sum(x, axis = 0)
+        x = np.sum(x, axis = 1) / (3 * self.num_calculators)
+        self.forces_variances = np.sqrt(x) 
+
+        return mean_forces
