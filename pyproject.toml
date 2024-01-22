@@ -4,14 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ase_ensemble_calculator"
-version = "0.0.1"
+version = "1.0.0"
 description = "Implimentation of ensemble calculator in ASE"
 authors = [
   { name = "Mathias Stokkebye Nissen" },
 ]
 
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.8"
 dynamic = ["dependencies", "optional-dependencies"]
 
 [tool.setuptools]
