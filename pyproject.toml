@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ase_ensemble_calculator"
-version = "1.0.0"
+version = "1.0.1"
 description = "ASE calculator wrapper for ensemble-based uncertainty estimates in atomistic simulation and active-learning workflows"
 authors = [
   { name = "Mathias Stokkebye Nissen" },
