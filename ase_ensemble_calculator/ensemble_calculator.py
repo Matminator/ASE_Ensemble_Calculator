@@ -85,10 +85,10 @@ class Ensemble_Calculator(Calculator):
             calc_energies.append(atoms_copy.get_potential_energy())
 
         calc_energies = np.asarray(calc_energies, dtype=float)
-        mean_energy = float(np.mean(calc_energies))
+        mean_energy = np.mean(calc_energies)
 
         if self.compute_variances:
-            self.potential_energy_variance = float(np.var(calc_energies))
+            self.potential_energy_variance = np.var(calc_energies)
 
         return mean_energy
 
