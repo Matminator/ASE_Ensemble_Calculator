@@ -69,6 +69,12 @@ Available uncertainty helpers:
 - `get_forces_variances()`
 - `get_forces_standard_deviations()`
 
+## Variance semantics
+
+`get_forces_variances()` returns a per-atom force variance aggregated across the three Cartesian force components. Larger values indicate stronger disagreement between ensemble members for a given atom.
+
+In active-learning workflows, that disagreement can be used as a practical uncertainty signal: structures with larger energy or force disagreement are stronger candidates for new reference calculations or manual inspection.
+
 ## Testing
 
 Run the test suite with:
@@ -89,6 +95,7 @@ The repository includes tests for:
 - `tests/`: pytest-based test suite
 - `.github/workflows/pytests.yaml`: CI configuration
 - `ASE_Ensemble_Calculator.ipynb`: exploratory notebook / usage notes
+- `examples/basic_usage.py`: minimal runnable example
 
 ## Intended use
 
